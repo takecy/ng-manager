@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var crypto = require('crypto');
+var api = require("./lib/api")
 
 var GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 var GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
@@ -163,82 +164,84 @@ var specs = {
   }
 };
 
-app.get('/config', function(req, res) {
+app.get("/config", api.fetchConfig);
 
-  res.json({
-
-    site: {
-      title: 'Example App'
-    },
-
-    entities: _.values(specs),
-
-    i18n: {
-      en: {
-        company: 'Company',
-        companyId: 'Company ID',
-        phrase: 'Phrase',
-        country: 'Country',
-        zipCode: 'Zip code',
-        city: 'City',
-        streetAddress: 'Street Address',
-        user: 'User',
-        userId: 'User ID',
-        firstName: 'First Name',
-        lastName: 'Last Name',
-        email: 'E-Mail',
-        phone: 'Phone',
-        createdAt: 'CreatedAt',
-        userIcon: 'User Icon',
-        voice: "Voice",
-        vod: 'VOD',
-        dimentions: 'Dimentions',
-        width: 'Width',
-        height: 'Height',
-        duration: 'Duration',
-        image: 'Image',
-        video: 'Video',
-        comment: 'Comment'
-      },
-      ja: {
-        company: '会社',
-        companyId: '会社ID',
-        phrase: 'フレーズ',
-        country: '国',
-        zipCode: '郵便番号',
-        city: '都市',
-        streetAddress: '住所',
-        user: 'ユーザー',
-        userId: 'ユーザーID',
-        firstName: '名',
-        lastName: '姓',
-        email: 'メールアドレス',
-        phone: '電話番号',
-        createdAt: '作成日',
-        userIcon: 'ユーザーアイコン',
-        voice: "音声",
-        vod: 'VOD',
-        dimentions: '大きさ',
-        width: '幅',
-        height: '高さ',
-        duration: '保存期間',
-        image: 'イメージ',
-        video: 'ビデオ',
-        comment: 'コメント'
-      }
-    },
-
-    auth: [
-      {
-        name: 'google',
-        type: 'oauth2',
-        url: '/oauth/google'
-      }
-    ]
-
-  });
-
-});
+// app.get('/config', function(req, res) {
+//
+//   res.json({
+//
+//     site: {
+//       title: 'Example App'
+//     },
+//
+//     entities: _.values(specs),
+//
+//     i18n: {
+//       en: {
+//         company: 'Company',
+//         companyId: 'Company ID',
+//         phrase: 'Phrase',
+//         country: 'Country',
+//         zipCode: 'Zip code',
+//         city: 'City',
+//         streetAddress: 'Street Address',
+//         user: 'User',
+//         userId: 'User ID',
+//         firstName: 'First Name',
+//         lastName: 'Last Name',
+//         email: 'E-Mail',
+//         phone: 'Phone',
+//         createdAt: 'CreatedAt',
+//         userIcon: 'User Icon',
+//         voice: "Voice",
+//         vod: 'VOD',
+//         dimentions: 'Dimentions',
+//         width: 'Width',
+//         height: 'Height',
+//         duration: 'Duration',
+//         image: 'Image',
+//         video: 'Video',
+//         comment: 'Comment'
+//       },
+//       ja: {
+//         company: '会社',
+//         companyId: '会社ID',
+//         phrase: 'フレーズ',
+//         country: '国',
+//         zipCode: '郵便番号',
+//         city: '都市',
+//         streetAddress: '住所',
+//         user: 'ユーザー',
+//         userId: 'ユーザーID',
+//         firstName: '名',
+//         lastName: '姓',
+//         email: 'メールアドレス',
+//         phone: '電話番号',
+//         createdAt: '作成日',
+//         userIcon: 'ユーザーアイコン',
+//         voice: "音声",
+//         vod: 'VOD',
+//         dimentions: '大きさ',
+//         width: '幅',
+//         height: '高さ',
+//         duration: '保存期間',
+//         image: 'イメージ',
+//         video: 'ビデオ',
+//         comment: 'コメント'
+//       }
+//     },
+//
+//     auth: [
+//       {
+//         name: 'google',
+//         type: 'oauth2',
+//         url: '/oauth/google'
+//       }
+//     ]
+//
+//   });
+//
+// });
 
 // app.get('/oauth/google',
 //   passport.authenticate('google', { scope: [
