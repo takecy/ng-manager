@@ -162,7 +162,7 @@ gulp.task('server', ['components','stylus','jade','fonts','scripts','nwk'], func
   gulp.watch('templates/jade/**/*', ['jade']);
   gulp.watch('components.*', ['components']);
   gulp.watch('src/**/*', ['scripts']);
-  require('./example/app.js').listen(4000, function() {
+  require('./server/admin.js').listen(4000, function() {
     console.log("Server listening port on 4000");
   });
 
@@ -170,4 +170,3 @@ gulp.task('server', ['components','stylus','jade','fonts','scripts','nwk'], func
 
 gulp.task('default', ['server']);
 gulp.task('build', ['components','stylus','jade','fonts','scripts']);
-

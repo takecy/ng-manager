@@ -21,35 +21,35 @@ app.use(function(req, res, next) {
   next();
 });
 
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
-});
-
-passport.use(new GoogleStrategy({
-    clientID: GOOGLE_CLIENT_ID,
-    clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: GOOGLE_CALLBACK_URL
-  },
-  function(accessToken, refreshToken, profile, done) {
-    // asynchronous verification, for effect...
-    process.nextTick(function () {
-
-      var sha1 = crypto.createHash('sha1');
-      sha1.update(accessToken);
-      var tokenHash = sha1.digest('hex');
-      tokenStrage.push(tokenHash);
-      profile.tokenHash = tokenHash;
-      return done(null, profile);
-    });
-  }
-));
-
-app.use(passport.initialize());
-app.use(passport.session());
+// passport.serializeUser(function(user, done) {
+//   done(null, user);
+// });
+//
+// passport.deserializeUser(function(obj, done) {
+//   done(null, obj);
+// });
+//
+// passport.use(new GoogleStrategy({
+//     clientID: GOOGLE_CLIENT_ID,
+//     clientSecret: GOOGLE_CLIENT_SECRET,
+//     callbackURL: GOOGLE_CALLBACK_URL
+//   },
+//   function(accessToken, refreshToken, profile, done) {
+//     // asynchronous verification, for effect...
+//     process.nextTick(function () {
+//
+//       var sha1 = crypto.createHash('sha1');
+//       sha1.update(accessToken);
+//       var tokenHash = sha1.digest('hex');
+//       tokenStrage.push(tokenHash);
+//       profile.tokenHash = tokenHash;
+//       return done(null, profile);
+//     });
+//   }
+// ));
+//
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 var specs = {
   user: {
@@ -97,7 +97,7 @@ var specs = {
       download: true,
       upload: true
     }
-  }, 
+  },
 
   company: {
     id: 'company',
@@ -127,7 +127,7 @@ var specs = {
           'companyId',
           'name',
           {
-            id:'country', 
+            id:'country',
             filter: {
               items: ['Japan','Nepal','India']
             }
@@ -156,7 +156,7 @@ var specs = {
             zipCode: 'number',
             city: 'string',
             streetAddress: 'string'
-          }          
+          }
         }
       }
     }
@@ -240,33 +240,33 @@ app.get('/config', function(req, res) {
 
 });
 
-app.get('/oauth/google',
-  passport.authenticate('google', { scope: [
-    //'https://www.googleapis.com/auth/plus.login',
-    'https://www.googleapis.com/auth/plus.profile.emails.read'
-  ]})
-);
-
-/*
-app.get('/auth/google',
-  passport.authenticate('google', { scope: [
-    'https://www.googleapis.com/auth/userinfo.profile'
-  ]}),
-  function(req, res){
-    // The request will be redirected to Google for authentication, so this
-    // function will not be called.
-  }
-);
-*/
-
-app.get('/oauth/google/callback',
-  passport.authenticate('google', {
-    failureRedirect: '/login'
-  }),
-  function(req, res) {
-    res.redirect('/#/?token=' + req.user.tokenHash);
-  }
-);
+// app.get('/oauth/google',
+//   passport.authenticate('google', { scope: [
+//     //'https://www.googleapis.com/auth/plus.login',
+//     'https://www.googleapis.com/auth/plus.profile.emails.read'
+//   ]})
+// );
+//
+// /*
+// app.get('/auth/google',
+//   passport.authenticate('google', { scope: [
+//     'https://www.googleapis.com/auth/userinfo.profile'
+//   ]}),
+//   function(req, res){
+//     // The request will be redirected to Google for authentication, so this
+//     // function will not be called.
+//   }
+// );
+// */
+//
+// app.get('/oauth/google/callback',
+//   passport.authenticate('google', {
+//     failureRedirect: '/login'
+//   }),
+//   function(req, res) {
+//     res.redirect('/#/?token=' + req.user.tokenHash);
+//   }
+// );
 
 app.get('/logout', function(req, res){
   req.logout();
@@ -339,7 +339,7 @@ var find = function(kind, keys) {
 
 var search = function(kind, q){
 
-  // your search method here  
+  // your search method here
   var list  = data[kind];
   return list;
 
